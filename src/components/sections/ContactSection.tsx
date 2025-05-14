@@ -111,7 +111,7 @@ const ContactSection: React.FC = () => {
             </div>
             
             <div className="md:col-span-3 p-8">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} netlify>
                 <div className="mb-6">
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
                     Name
