@@ -1,0 +1,22 @@
+import React, { ReactNode } from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import { AnimatePresence } from '../utils/AnimatePresence';
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <AnimatePresence>
+        <main className="flex-grow">{children}</main>
+      </AnimatePresence>
+      <Footer />
+    </div>
+  );
+};
+
+export default Layout;
