@@ -21,6 +21,18 @@ const Header: React.FC = () => {
     };
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
@@ -52,8 +64,12 @@ const Header: React.FC = () => {
             scrollToSection('#home');
           }}
         >
-          <Code size={28} />
-          <span>Portfolio</span>
+          <img 
+            src="/icons/favicon.png" 
+            alt="Logo Lutfi" 
+            className="w-10 h-10" // ukuran 28px (7*4)
+          />
+          <span>Lutfi Ekaprima Jannata</span>
         </a>
 
         {/* Desktop Navigation */}
@@ -80,7 +96,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation Toggle */}
         <button
-          className="block md:hidden text-gray-800"
+          className="block md:hidden text-gray-800 relative z-50"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -90,7 +106,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Navigation Menu */}
       <div
-        className={`fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 bg-white transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden`}
       >

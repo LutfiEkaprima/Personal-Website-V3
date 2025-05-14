@@ -32,7 +32,7 @@ const ProjectsSection: React.FC = () => {
       title: 'Portfolio Website',
       description: 'A modern portfolio website with smooth animations and responsive design.',
       tags: ['React', 'TypeScript', 'Tailwind CSS', 'Animations'],
-      imageUrl: 'https://images.pexels.com/photos/4974915/pexels-photo-4974915.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      imageUrl: 'https://github.com/LutfiEkaprima/Goproject/releases/download/img/SS.png',
       link: '#'
     }
   ];

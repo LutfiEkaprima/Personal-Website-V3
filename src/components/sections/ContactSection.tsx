@@ -40,10 +40,9 @@ const ContactSection: React.FC = () => {
   };
   
   const socialLinks = [
-    { icon: <Github size={24} />, href: 'https://github.com', label: 'GitHub' },
-    { icon: <Linkedin size={24} />, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <Twitter size={24} />, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: <Mail size={24} />, href: 'mailto:contact@example.com', label: 'Email' },
+    { icon: <Github size={24} />, href: 'https://github.com/LutfiEkaprima', label: 'GitHub' },
+    { icon: <Linkedin size={24} />, href: 'https://www.linkedin.com/in/lutfiekaprima/', label: 'LinkedIn' },
+    { icon: <Mail size={24} />, href: 'mailto:lutfiekj@gmail.com', label: 'Email' },
   ];
 
   return (
@@ -83,13 +82,13 @@ const ContactSection: React.FC = () => {
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold">Email</p>
-                    <a href="mailto:contact@example.com" className="text-blue-200 hover:text-white transition-colors">
-                      contact@example.com
+                    <a href="mailto:lutfiekj@gmail.com" className="text-blue-200 hover:text-white transition-colors">
+                      lutfiekj@gmail.com
                     </a>
                   </div>
                   <div>
                     <p className="font-semibold">Location</p>
-                    <p className="text-blue-200">San Francisco, CA</p>
+                    <p className="text-blue-200">Indonesia, Banten, Kabupaten Tangerang</p>
                   </div>
                 </div>
               </div>
