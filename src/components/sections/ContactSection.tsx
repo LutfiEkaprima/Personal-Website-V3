@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Button from '../ui/Button';
 import { useInView } from '../utils/useInView';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail,} from 'lucide-react';
 import SocialLink from '../ui/SocialLink';
 
 const ContactSection: React.FC = () => {
@@ -22,21 +22,36 @@ const ContactSection: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitMessage('Thank you! Your message has been sent successfully.');
-      setFormData({ name: '', email: '', message: '' });
+    try {
+      const form = e.currentTarget;
+      const formData = new FormData(form);
       
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setSubmitMessage('');
-      }, 5000);
-    }, 1500);
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      
+      if (response.ok) {
+        setSubmitMessage('Thank you! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitMessage('');
+        }, 5000);
+      } else {
+        setSubmitMessage('Oops! Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setSubmitMessage('Oops! Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   const socialLinks = [
@@ -88,7 +103,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Location</p>
-                    <p className="text-blue-200">Indonesia, Banten, Kabupaten Tangerang</p>
+                    <p className="text-blue-200">Indonesia, Banten</p>
                   </div>
                 </div>
               </div>
@@ -111,7 +126,20 @@ const ContactSection: React.FC = () => {
             </div>
             
             <div className="md:col-span-3 p-8">
-              <form onSubmit={handleSubmit}>
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don't fill this out if you're human: <input name="bot-field" />
+                  </label>
+                </p>
+                
                 <div className="mb-6">
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
                     Name
