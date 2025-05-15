@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Button from '../ui/Button';
 import { useInView } from '../utils/useInView';
-import { Github, Linkedin, Mail,} from 'lucide-react';
+import { Github, Linkedin, Mail} from 'lucide-react';
 import SocialLink from '../ui/SocialLink';
 
 const ContactSection: React.FC = () => {
@@ -199,7 +199,11 @@ const ContactSection: React.FC = () => {
                 </div>
                 
                 {submitMessage && (
-                  <div className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg">
+                  <div className={`mt-4 p-3 rounded-lg ${
+                    submitMessage.includes('successfully') 
+                      ? 'bg-green-50 text-green-700' 
+                      : 'bg-red-50 text-red-700'
+                  }`}>
                     {submitMessage}
                   </div>
                 )}
