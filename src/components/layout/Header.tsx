@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +21,6 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -49,69 +48,85 @@ const Header: React.FC = () => {
     }
   };
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <header 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 backdrop-blur-sm shadow-sm py-3' : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <a 
-          href="#home" 
-          className="flex items-center gap-2 text-2xl font-bold text-gray-800 transition-colors duration-300"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('#home');
-          }}
-        >
-          <img 
-            src="/icons/favicon.png" 
-            alt="Logo Lutfi" 
-            className="w-10 h-10" // ukuran 28px (7*4)
-          />
-          <span>Lutfi Ekaprima Jannata</span>
-        </a>
+    <>
+      <header
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          scrolled ? 'bg-white/90 backdrop-blur-sm shadow-sm py-3' : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <a
+            href="#home"
+            className="flex items-center gap-2 text-2xl font-bold text-gray-800 transition-colors duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('#home');
+            }}
+          >
+            <img
+              src="/icons/favicon.png"
+              alt="Logo Lutfi"
+              className="w-10 h-10"
+            />
+            <span>Lutfi Ekaprima Jannata</span>
+          </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:block">
-          <ul className="flex space-x-8">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className={`text-sm font-medium ${
-                    scrolled ? 'text-gray-800 hover:text-blue-600' : 'text-gray-800 hover:text-blue-600'
-                  } transition-colors duration-300`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <nav className="hidden md:block">
+            <ul className="flex space-x-8">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className={`text-sm font-medium ${
+                      scrolled ? 'text-gray-800 hover:text-blue-600' : 'text-gray-800 hover:text-blue-600'
+                    } transition-colors duration-300`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        {/* Mobile Navigation Toggle */}
-        <button
-          className="block md:hidden text-gray-800 relative z-50"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+          {/* Tombol untuk MEMBUKA menu mobile (hanya ikon Menu) */}
+          <button
+            className="block md:hidden text-gray-800 relative z-[51]" // z-index agar di atas header jika perlu, tapi di bawah menu saat terbuka
+            onClick={toggleMenu}
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+      </header>
 
       {/* Mobile Navigation Menu */}
       <div
         className={`fixed inset-0 bg-white transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden`}
+        } md:hidden z-[60]`}
       >
-        <div className="flex flex-col h-full pt-24 px-6">
-          <ul className="space-y-6">
+        {/* Tombol Close (X) SEKARANG ADA DI DALAM MENU MOBILE */}
+        <div className="absolute top-5 right-4"> {/* Sesuaikan posisi tombol X */}
+          <button
+            className="text-gray-800"
+            onClick={toggleMenu} // Fungsi yang sama untuk menutup
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="flex flex-col h-full pt-16 sm:pt-20 px-6"> {/* Sesuaikan padding top jika perlu */}
+          <ul className="space-y-6 mt-8 sm:mt-4"> {/* Tambah margin top jika perlu setelah tombol X */}
             {navLinks.map((link) => (
               <li key={link.name}>
                 <a
@@ -119,7 +134,7 @@ const Header: React.FC = () => {
                   className="text-xl font-medium text-gray-800 hover:text-blue-600 transition-colors duration-300 block py-2"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href);
+                    scrollToSection(link.href); // Ini sudah termasuk setIsOpen(false)
                   }}
                 >
                   {link.name}
@@ -129,7 +144,7 @@ const Header: React.FC = () => {
           </ul>
         </div>
       </div>
-    </header>
+    </>
   );
 };
 
