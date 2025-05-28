@@ -97,9 +97,8 @@ const Header: React.FC = () => {
             </ul>
           </nav>
 
-          {/* Tombol untuk MEMBUKA menu mobile (hanya ikon Menu) */}
           <button
-            className="block md:hidden text-gray-800 relative z-[51]" // z-index agar di atas header jika perlu, tapi di bawah menu saat terbuka
+            className="block md:hidden text-gray-800 relative z-[51]"
             onClick={toggleMenu}
             aria-label="Open menu"
           >
@@ -114,19 +113,18 @@ const Header: React.FC = () => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden z-[60]`}
       >
-        {/* Tombol Close (X) SEKARANG ADA DI DALAM MENU MOBILE */}
-        <div className="absolute top-5 right-4"> {/* Sesuaikan posisi tombol X */}
+        <div className="absolute top-5 right-4">
           <button
             className="text-gray-800"
-            onClick={toggleMenu} // Fungsi yang sama untuk menutup
+            onClick={toggleMenu}
             aria-label="Close menu"
           >
             <X size={24} />
           </button>
         </div>
 
-        <div className="flex flex-col h-full pt-16 sm:pt-20 px-6"> {/* Sesuaikan padding top jika perlu */}
-          <ul className="space-y-6 mt-8 sm:mt-4"> {/* Tambah margin top jika perlu setelah tombol X */}
+        <div className="flex flex-col h-full pt-16 sm:pt-20 px-6">
+          <ul className="space-y-6 mt-8 sm:mt-4">
             {navLinks.map((link) => (
               <li key={link.name}>
                 <a
@@ -134,7 +132,7 @@ const Header: React.FC = () => {
                   className="text-xl font-medium text-gray-800 hover:text-blue-600 transition-colors duration-300 block py-2"
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href); // Ini sudah termasuk setIsOpen(false)
+                    scrollToSection(link.href);
                   }}
                 >
                   {link.name}
